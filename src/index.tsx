@@ -24,6 +24,8 @@ declare global {
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 window.play = play
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 let soundpack = drumpfSounds
 
 preloadSoundClips(soundpack).then()
@@ -95,6 +97,8 @@ function App() {
 
     const sound = random(list)
     await doReply(sound)
+
+    await delay(600)
     await doReply(random(without(list, sound)))
 
     listen()

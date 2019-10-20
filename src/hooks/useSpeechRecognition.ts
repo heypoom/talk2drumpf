@@ -32,6 +32,8 @@ export function useSpeechRecognition(): HookResult {
 
   speech.onend = () => {
     setListening(false)
+
+    setTimeout(listen, 2000)
   }
 
   speech.onresult = e => {
