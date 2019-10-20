@@ -1,8 +1,34 @@
+$pink: #f62559;
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 body {
   margin: 0;
   font-size: 16px;
   font-weight: 300;
   font-family: 'FuraCode Nerd Font', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+strong {
+  font-weight: 500;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  background: transparent;
+}
+
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .container {
@@ -28,6 +54,9 @@ body {
 .text-container {
   margin: 0 auto;
   max-width: 800px;
+  padding: 0 2.8em;
+
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
 .result,
@@ -61,7 +90,11 @@ body {
 
   font-size: 3.8em;
   cursor: pointer;
-  z-index: 3;
+  z-index: 2;
+}
+
+.blink {
+  animation: blink 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s infinite alternate;
 }
 
 .trump-cover {
@@ -89,21 +122,22 @@ body {
 
   padding: 10px 32px;
   font-size: 24px;
-  color: #f62559;
-  box-shadow: 2px 2px 2px  #f62559be;
+  color: $pink;
+  box-shadow: 2px 2px 2px #f62559be;
   font-weight: 300;
 
   border-radius: 10em;
-  border-bottom: 2px solid #f62559;
+  border-bottom: 2px solid $pink;
   outline: none;
-
+  
   z-index: 1;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
 .transcript-backdrop {
   position: absolute;
   z-index: 2;
-  background: #f62559;
+  background: $pink;
   color: rgba(255, 255, 255, 0.9);
   width: 100%;
   height: 100%;
@@ -116,7 +150,8 @@ body {
 
   .transcript-container {
     padding: 80px 0;
-    overflow-x: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .transcript {
@@ -131,9 +166,5 @@ body {
     font-weight: 500;
     margin-bottom: 1.35em;
     line-height: 1.6em;
-  }
-
-  strong {
-    font-weight: 500;
   }
 }

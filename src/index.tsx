@@ -45,7 +45,7 @@ function TranscriptViewer({transcript, close}: TVProps) {
   return (
     <div className="transcript-backdrop" onClick={close}>
       <div className="transcript-container">
-        <div className="heading">📝 Transcripts</div>
+        <div className="heading">📝 Ukraine Transcript</div>
 
         {transcript.map(t => (
           <div className="transcript" key={t.chat + t.reply}>
@@ -56,6 +56,10 @@ function TranscriptViewer({transcript, close}: TVProps) {
       </div>
     </div>
   )
+}
+
+const coverStyle = {
+  backgroundImage: `url(https://source.unsplash.com/1920x1080/?trump&timestamp=${Date.now()})`
 }
 
 function App() {
@@ -112,11 +116,11 @@ function App() {
         <div className="text-container">
           <div className="result">💬: {chat}</div>
 
-          <div className="reply-sentence">🍔: {reply}</div>
+          <div className="reply-sentence">🍔: <strong>{reply}</strong></div>
         </div>
       </div>
 
-      <div className="listening-indicator" onClick={listen}>
+      <div className="listening-indicator blink" onClick={listen}>
         {isListening ? ' 👂 ' : ' ⛔️ '}
       </div>
 
