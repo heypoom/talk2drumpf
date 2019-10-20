@@ -98,6 +98,8 @@ function App() {
     await doReply(random(without(list, sound)))
   }
 
+  const indicatorClass = `listening-indicator blink ${isListening ? 'active' : ''}`
+
   window.run = run
 
   useEffect(() => {
@@ -120,7 +122,7 @@ function App() {
         </div>
       </div>
 
-      <div className="listening-indicator blink" onClick={listen}>
+      <div className={indicatorClass} onClick={listen}>
         {isListening ? ' 👂 ' : ' ⛔️ '}
       </div>
 

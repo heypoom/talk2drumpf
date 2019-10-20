@@ -74,6 +74,13 @@ strong {
   right: 40px;
 }
 
+.listening-indicator:not(.active) {
+  left: 50%;
+  transform: translateX(-5%);
+  top: 3%;
+  font-size: 100px;
+}
+
 .transcript-btn {
   left: 140px;
 }
