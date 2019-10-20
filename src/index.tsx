@@ -96,6 +96,8 @@ function App() {
     const sound = random(list)
     await doReply(sound)
     await doReply(random(without(list, sound)))
+
+    listen()
   }
 
   const indicatorClass = `listening-indicator blink ${isListening ? 'active' : ''}`
@@ -106,15 +108,15 @@ function App() {
     if (!isListening && result) {
       stop()
 
-      run(result).then(() => listen())
+      run(result)
     }
   }, [isListening, result])
 
   return (
-    <div className="container trump-cover">
+    <div className="container trump-cover" onClick={listen}>
       <div className="bg-blur-backdrop"></div>
 
-      <div className="text-backdrop" onClick={listen}>
+      <div className="text-backdrop">
         <div className="text-container">
           <div className="result">💬: {chat}</div>
 
