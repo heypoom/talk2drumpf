@@ -78,9 +78,9 @@ function App() {
 
       <div className="text-backdrop" onClick={listen}>
         <div className="text-container">
-          <div className="result">💬: {chat}</div>
+          <div className="result">💬: {chat || '...'}</div>
 
-          <div className="reply-sentence">🍔: {reply}</div>
+          <div className="reply-sentence">🍔: {reply || '...'}</div>
         </div>
       </div>
 
