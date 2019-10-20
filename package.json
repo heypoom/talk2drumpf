@@ -1,0 +1,27 @@
+{
+  "name": "talk2drumpf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:phoomparin/talk2drumpf.git",
+  "author": "Phoomparin Mano <phoomparin@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/core": "^10.0.21",
+    "@emotion/styled": "^10.0.17",
+    "@reach/router": "^1.2.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "^16.9.2",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.2.1",
+    "sass": "^1.23.0",
+    "typescript": "^3.6.4"
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  }
+}
