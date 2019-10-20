@@ -123,7 +123,7 @@ function App() {
       </div>
 
       <div className={indicatorClass} onClick={listen}>
-        {isListening ? ' 👂 ' : ' ⛔️ '}
+        {isListening ? '👂' : '🤫'}
       </div>
 
       <div className="transcript-btn" onClick={toggleTranscript}>
