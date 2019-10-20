@@ -10,6 +10,16 @@ $pink: #f62559;
   }
 }
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 body {
   margin: 0;
   font-size: 16px;
@@ -100,6 +110,13 @@ strong {
   font-size: 3.8em;
   cursor: pointer;
   z-index: 2;
+}
+
+.transcript-btn,
+.random-sound-clip {
+  &:hover {
+    animation: rotate 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s infinite alternate;
+  }
 }
 
 .blink {
