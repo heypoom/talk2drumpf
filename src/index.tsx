@@ -31,41 +31,73 @@ preloadSoundClips(soundpack).then()
 const random = items => items[Math.floor(Math.random() * items.length)]
 const without = (haystack, needle) => haystack.filter(i => i !== needle)
 
+interface Transcript {
+  chat: string
+  reply: string
+}
+
+interface TVProps {
+  transcript: Transcript[]
+  close: Function
+}
+
+function TranscriptViewer({transcript, close}: TVProps) {
+  return (
+    <div className="transcript-backdrop" onClick={close}>
+      <div className="transcript-container">
+        <div className="heading">📝 Transcripts</div>
+
+        {transcript.map(t => (
+          <div className="transcript" key={t.chat + t.reply}>
+            <div>💬: {t.chat}</div>
+            <div>🍔: <strong>{t.reply}</strong></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function App() {
-  const [chat, setChat] = useState('')
-  const [reply, setReply] = useState('')
+  const [chat, setChat] = useState('...')
+  const [reply, setReply] = useState('...')
   const [result, isListening, listen, stop] = useSpeechRecognition()
 
-  function doReply(_reply: string) {
-    setReply(_reply.replace(/_/g, ' '))
+  const [transcript, setTranscript] = useState<Transcript[]>([])
+  const [isTranscriptOpen, setTranscriptOpen] = useState(false)
 
-    return play(_reply)
+  const addTranscript = (chat: string, reply: string) =>
+    setTranscript([...transcript, {chat, reply}])
+
+  const toggleTranscript = () =>
+    setTranscriptOpen(!isTranscriptOpen)
+
+  function doReply(sound: string) {
+    const reply = sound.replace(/_/g, ' ')
+    setReply(reply)
+    addTranscript(chat, reply)
+
+    console.log(`💬: ${chat}`)
+    console.log(`🍔: ${reply}`)
+
+    return play(sound)
   }
 
   async function run(text: string) {
     setChat(text)
 
     const sounds = soundFrom(text, soundpack)
-    if (sounds.length < 1) return doReply(random(soundpack))
+    const list = sounds.length > 1 ? sounds : soundpack
 
-    console.log(`Randomizing ${text} as ${sounds}`)
-
-    const sound = random(sounds)
+    const sound = random(list)
     await doReply(sound)
-
-    if (sounds.length > 2)
-      await doReply(random(without(sounds, sound)))
+    await doReply(random(without(list, sound)))
   }
 
   window.run = run
 
   useEffect(() => {
-    if (isListening) {
-      console.log('👂')
-    }
-
     if (!isListening && result) {
-      console.log('💬:', result)
       stop()
 
       run(result).then(() => listen())
@@ -78,9 +110,9 @@ function App() {
 
       <div className="text-backdrop" onClick={listen}>
         <div className="text-container">
-          <div className="result">💬: {chat || '...'}</div>
+          <div className="result">💬: {chat}</div>
 
-          <div className="reply-sentence">🍔: {reply || '...'}</div>
+          <div className="reply-sentence">🍔: {reply}</div>
         </div>
       </div>
 
@@ -88,9 +120,15 @@ function App() {
         {isListening ? ' 👂 ' : ' ⛔️ '}
       </div>
 
+      <div className="transcript-btn" onClick={toggleTranscript}>
+        📝
+      </div>
+
       <div className="random-sound-clip" onClick={() => run('...')}>
         🎲
       </div>
+
+      {isTranscriptOpen && <TranscriptViewer transcript={transcript} close={toggleTranscript} />}
 
       <input
         type="text"

@@ -2,6 +2,7 @@ export function soundFrom(text: string, sounds: string[]) {
   const words = text.split(' ')
   const list = []
 
+  // Use exact match
   words.forEach(word => {
     if (word.length < 3) return
 
@@ -12,7 +13,16 @@ export function soundFrom(text: string, sounds: string[]) {
     })
   })
 
-  console.log('List:', list)
+  console.log('🎲 Possible Replies:', list)
+
+  // Use fuzzy match when exact is not enough
+  if (list.length < 3) {
+    words.forEach(word => {
+      if (word.length < 3) return
+
+      sounds.filter(s => s.includes(word)).forEach(s => list.push(s))
+    })
+  }
 
   return Array.from(new Set(list))
 }

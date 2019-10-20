@@ -21,13 +21,10 @@ export function playSound(url: string) {
     audio.play()
 
     audio.onplay = () => {
-      console.log('Playing:', url)
-
       currentSound = true
     }
 
     audio.onended = () => {
-      console.log('Playback Ended:', url)
       currentSound = false
 
       resolve()
