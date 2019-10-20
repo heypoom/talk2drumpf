@@ -67,10 +67,12 @@ const coverStyle = {
 function App() {
   const [chat, setChat] = useState('...')
   const [reply, setReply] = useState('...')
-  const [result, isListening, listen, stop] = useSpeechRecognition()
+  const [result, isListening, listen, stop, status] = useSpeechRecognition()
 
   const [transcript, setTranscript] = useState<Transcript[]>([])
   const [isTranscriptOpen, setTranscriptOpen] = useState(false)
+
+  console.log('👂', status)
 
   const addTranscript = (chat: string, reply: string) =>
     setTranscript([...transcript, {chat, reply}])
